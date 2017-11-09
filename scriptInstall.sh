@@ -16,7 +16,7 @@ nodes=$(uniq $OAR_NODEFILE)
 export X10_HOSTFILE=$nodes
 export X10_NPLACES=$nbNodes
 
-source .bashrc
+source /etc/profile
 
 x10/bin/x10c hello.x10
 
