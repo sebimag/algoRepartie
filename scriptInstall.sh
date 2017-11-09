@@ -12,6 +12,6 @@ uniq $OAR_NODEFILE > hostfile.txt
 export X10_HOSTFILE='hostfile.txt'
 export X10_NPLACES=$nbNodes
 
-x10/bin/x10c hello.x10
+x10/bin/x10c ParserTest.x10
 
-x10/bin/x10 hello
+x10/bin/x10 ParserTest
