@@ -1,4 +1,4 @@
-This is a distribution of the X10 Programming Language.
+  This is a distribution of the X10 Programming Language.
 
     http://x10-lang.org/
 
