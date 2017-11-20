@@ -20,14 +20,12 @@ case $numTest in
 	tail DistMake/list.txt
 	;;
         2)
-	wget https://download.blender.org/release/Blender2.79/blender-2.79-linux-glibc219-x86_64.tar.bz2
-	tar -xf blender-2.79-linux-glibc219-x86_64.tar.bz2
-	./scriptSend2Slave.sh blender-2.79-linux-glibc219-x86_64
-	 	
+	sudo-g5k apt-get install blender -y -qq
+	./scriptCommand2Slave.sh sudo-g5k apt-get install blender -y -qq
 	cp testMakefiles/blender_2.49/Makefile DistMake
 	cp testMakefiles/blender_2.49/cube_anim.zip DistMake
 	cd DistMake
-	
+	~/x10/bin/x10 DistMake Makefile cube.mpg
 	;;
 	3)
 	read -p "Give size : " size
