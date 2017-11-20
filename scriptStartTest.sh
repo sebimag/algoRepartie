@@ -3,8 +3,8 @@ echo "=================================="
 echo "            TEST STARTER          "
 echo "=================================="
 echo "1. Test premier"
-echo "2. other Test"
-echo "3. another Test"
+echo "2. Blender"
+echo "3. Matrix"
 echo "================================="
 read -p "Select num test : " numTest
 
@@ -19,7 +19,7 @@ case $numTest in
 	~/x10/bin/x10 DistMake Makefile list.txt
 	tail DistMake/list.txt
 	;;
-        2) echo "Choix 2"
+        2)
 	wget https://download.blender.org/release/Blender2.79/blender-2.79-linux-glibc219-x86_64.tar.bz2
 	tar -xf blender-2.79-linux-glibc219-x86_64.tar.bz2
 	./scriptSend2Slave.sh blender-2.79-linux-glibc219-x86_64
@@ -29,7 +29,11 @@ case $numTest in
 	cd DistMake
 	
 	;;
-	3) echo "Choix 3"
+	3)
+	read -p "Give size : " size
+	testMakefiles/matrix/./generate_makefile.pl $size > Makefile
+	testMakefiles/matrix/random_matrix.pl 3 2 > a
+	testMakefiles/matrix/random_matrix.pl 2 3 > b
 	;;
         *)
 esac
