@@ -26,6 +26,7 @@ case $numTest in
 	./scriptCommand2Slave.sh "sudo-g5k apt-get install blender -y -qq"
 	unzip testMakefiles/blender_2.49/cube_anim.zip
 	./scriptSend2Slave.sh cube_anim.blend
+	cp cube_anim.blend /tmp/DistMake
 	cp testMakefiles/blender_2.49/Makefile DistMake
 	cp testMakefiles/blender_2.49/cube_anim.zip DistMake
 	cd DistMake
