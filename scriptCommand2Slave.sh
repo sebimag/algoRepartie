@@ -6,7 +6,9 @@ while IFS= read -r line
 do
         if [ $i -gt 0 ]
         then
-                 ssh $line $1
+		ssh $line $1 &
         fi
         ((i++))
 done < "$file"
+
+wait
