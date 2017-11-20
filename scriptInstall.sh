@@ -1,21 +1,20 @@
 #!/bin/bash
 #source ./scriptInstall.sh
 #GET ENV
-userHome="/home/ndekerleau"
+
 cd /tmp/
 
-mkdir -p "$userHome/DistMake"
-touch "$userHome/hostfile.txt"
+touch "$HOME/hostfile.txt"
 export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64/"
 
 nbNodes=$(uniq $OAR_NODEFILE | wc -l)
-uniq $OAR_NODEFILE > "$userHome/hostfile.txt"
+uniq $OAR_NODEFILE > "$HOME/hostfile.txt"
 
-export X10_HOSTFILE="$userHome/hostfile.txt"
+export X10_HOSTFILE="$HOME/hostfile.txt"
 export X10_NPLACES=$nbNodes
-export X10_ABSOLUTEPATH="$userHome/hostfile.txt"
+export X10_ABSOLUTEPATH="$HOME/hostfile.txt"
 
-file="$userHome/hostfile.txt"
+file="$HOME/hostfile.txt"
 i=0
 ~/x10/bin/x10c -d /tmp/DistMake DistMake/src/DistMake.x10
 
