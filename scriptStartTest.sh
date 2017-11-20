@@ -8,7 +8,7 @@ read -p "Select num test : " numTest
 case $numTest in
         1)
 	gcc testMakefiles/premier/premier.c -lm -o premier
-	./scriptSend2Slave.sh testMakefiles/premier/premier
+	./scriptSend2Slave.sh premier
 	cp testMakefiles/premier/Makefile DistMake
 	cd  DistMake
 	~/x10/bin/x10 DistMake Makefile list.txt
