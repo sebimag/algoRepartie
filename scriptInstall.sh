@@ -16,6 +16,8 @@ export X10_ABSOLUTEPATH="$HOME/hostfile.txt"
 
 file="$HOME/hostfile.txt"
 i=0
+
+mv x10 ~/
 ~/x10/bin/x10c -d /tmp/DistMake DistMake/src/DistMake.x10
 
 while IFS= read -r line
