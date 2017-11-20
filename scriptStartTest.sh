@@ -14,6 +14,7 @@ case $numTest in
 	./scriptCommand2Slave.sh "rm -rf /tmp/DistMake/list*.txt 2> /dev/null"
 	gcc testMakefiles/premier/premier.c -lm -o premier
 	./scriptSend2Slave.sh premier
+	cp premier /tmp/DistMake
 	cp testMakefiles/premier/Makefile DistMake
 	cd  DistMake
 	time ~/x10/bin/x10 DistMake Makefile list.txt
