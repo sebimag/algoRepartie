@@ -1,0 +1,29 @@
+fin : a b c d 1 2 3 4
+	touch fin
+a : e f j
+	touch a
+e : 
+	touch e
+f :
+	touch f
+j :
+	touch j
+b : g h i
+	touch b
+g :	
+	touch g
+h :
+	touch h
+i :
+	touch i
+1 : e f j g
+	touch 1
+
+2 : e g h i
+	touch 2
+
+2 : e f h
+	touch 3
+
+4 : g f j
+	touch 4

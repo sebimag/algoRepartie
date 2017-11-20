@@ -1,0 +1,7 @@
+c: a b
+	touch c
+
+a:
+	touch a
+b:
+	touch b
