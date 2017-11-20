@@ -16,7 +16,7 @@ case $numTest in
 	./scriptSend2Slave.sh premier
 	cp testMakefiles/premier/Makefile DistMake
 	cd  DistMake
-	~/x10/bin/x10 DistMake Makefile list.txt
+	time ~/x10/bin/x10 DistMake Makefile list.txt
 	tail DistMake/list.txt
 	;;
         2)
