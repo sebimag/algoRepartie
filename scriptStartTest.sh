@@ -1,8 +1,10 @@
 #!/bin/bash
 
+echo "=================================="
 echo "1. Test premier"
 echo "2. other Test"
 echo "3. another Test"
+echo "================================="
 read -p "Select num test : " numTest
 
 case $numTest in
@@ -12,6 +14,7 @@ case $numTest in
 	cp testMakefiles/premier/Makefile DistMake
 	cd  DistMake
 	~/x10/bin/x10 DistMake Makefile list.txt
+	tail DistMake/list.txt
 	;;
         2) echo "Choix 2"
 	;;
