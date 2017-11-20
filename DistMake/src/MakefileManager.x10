@@ -12,6 +12,7 @@ public class MakefileManager {
 	private static val root:Root = new Root();
 	private static val monitor:Monitor = new Monitor();
 
+
 	public static def init(tree:Tree) {
 		readHostfile();
 		x10.io.Console.OUT.println("Taille du cluster : " + cluster.size);
@@ -101,6 +102,7 @@ public class MakefileManager {
 		//x10.io.Console.OUT.println("Managing a command");
 		val tree:Tree = root.getTree();
 		val there = here;
+		val master : String = hostnames(0);
 
 		// On utilise un Lock pour empêcher de réserver plusieurs fois la même machine en même temps
 		monitor.lock();
@@ -121,6 +123,7 @@ public class MakefileManager {
 		//Console.OUT.println("machine vide : " + tmpId);
 		val idFree : Long = tmpId;
 		// La machine est "réservée", on peut laisser un autre thread essayer d'en prendre une autre
+		val slave : String = hostnames(idFree);
 		monitor.unlock();
 		at (Place.places()(idFree)) async {
 
@@ -129,7 +132,9 @@ public class MakefileManager {
 				for(dependency in rule.getDependencies()) {
 					if(!(new File(dependency).exists())) {
 						// on transfert une dépendance de la machine maitre vers l'esclave.
-						sendFileToSlaves(dependency, there);
+						if(master != slave) {
+							sendFileToSlaves(dependency, slave);
+						}
 					}
 				}
 			}
@@ -139,7 +144,7 @@ public class MakefileManager {
 				}
 			}
 			// on transfert le fichier créé par la commande de la machine esclave vers le maitre.
-			receiveFileFromSlaves(rule.getCreatedFilename());
+			receiveFileFromSlaves(rule.getCreatedFilename(), master);
 			terminateRule(rule);
 			// puis on considère que la règle a été exécutée.
 			finish {
@@ -189,20 +194,18 @@ public class MakefileManager {
 		}
 	}
 
-	private static def sendFileToSlaves(filename:String, toPlace:Place) {
-		if(toPlace != Place.FIRST_PLACE) {
-			at (Place.FIRST_PLACE) async java.lang.Runtime.getRuntime().exec("scp " + relativePathOnMaster + filename + " " + hostnames(toPlace.id) + ":/tmp/DistMake");
-			Console.OUT.println("scp " + relativePathOnMaster + filename + " " + hostnames(toPlace.id) + ":/tmp/DistMake");
-			Console.OUT.println("Envoie de " + filename +" à "+ hostnames(toPlace.id) + " du master.");
-		}
+	private static def sendFileToSlaves(filename:String, slave:String) {
+		at (Place.FIRST_PLACE) async java.lang.Runtime.getRuntime().exec("scp " + relativePathOnMaster + filename + " " + slave + ":/tmp/DistMake");
+		Console.OUT.println("scp " + relativePathOnMaster + filename + " " + slave + ":/tmp/DistMake");
+		Console.OUT.println("Envoie de " + filename +" à "+ slave + " du master.");
 	}
 
-	private static def receiveFileFromSlaves(filename:String) {
+	private static def receiveFileFromSlaves(filename:String, receiver:String) {
 		finish {
 			async {
 				if(here != Place.FIRST_PLACE) {
-					java.lang.Runtime.getRuntime().exec("scp /tmp/DistMake/" + filename + " " + hostnames(0) + ":" + relativePathOnMaster);
-					Console.OUT.println("scp /tmp/DistMake/" + filename + " " + hostnames(0) + ":" + relativePathOnMaster);
+					java.lang.Runtime.getRuntime().exec("scp /tmp/DistMake/" + filename + " " + receiver + ":" + relativePathOnMaster);
+					Console.OUT.println("scp /tmp/DistMake/" + filename + " " + receiver + ":" + relativePathOnMaster);
 					Console.OUT.println("Reçois de " + filename +" de la machine " + here);
 				}
 			}
