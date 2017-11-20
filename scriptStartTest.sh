@@ -30,7 +30,7 @@ case $numTest in
 	cp testMakefiles/blender_2.49/Makefile DistMake
 	cp testMakefiles/blender_2.49/cube_anim.zip DistMake
 	cd DistMake
-	~/x10/bin/x10 DistMake Makefile cube.mpg
+	time ~/x10/bin/x10 DistMake Makefile cube.mpg
 	;;
 	3)
 	read -p "Give size : " size
