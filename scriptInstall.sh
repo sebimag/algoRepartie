@@ -16,7 +16,7 @@ export X10_ABSOLUTEPATH="$userHome/hostfile.txt"
 
 file="$userHome/hostfile.txt"
 i=0
-~/x10/bin/x10c -d "$userHome"/DistMake DistMake/src/DistMake.x10
+~/x10/bin/x10c -d /tmp/DistMake DistMake/src/DistMake.x10
 while IFS= read -r line
 do
 	if [ $i -gt 0 ]
