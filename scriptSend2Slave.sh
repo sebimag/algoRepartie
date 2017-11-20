@@ -6,7 +6,9 @@ while IFS= read -r line
 do
         if [ $i -gt 0 ]
         then
-                scp -r $1 $line:/tmp/DistMake
+                scp -r $1 $line:/tmp/DistMake &
         fi
         ((i++))
 done < "$file"
+
+wait
