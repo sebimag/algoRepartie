@@ -1,7 +1,8 @@
 #!/bin/bash
 #source ./scriptInstall.sh
 #GET ENV
-cd /tmp
+mkdir -p /tmp/projet/
+cd /tmp/projet/
 touch hostfile.txt
 export JAVA_HOME='/usr/lib/jvm/java-7-openjdk-amd64/'
 
@@ -10,6 +11,6 @@ uniq $OAR_NODEFILE > hostfile.txt
 
 export X10_HOSTFILE='/tmp/projet/hostfile.txt'
 export X10_NPLACES=$nbNodes
-export X10_ABSOLUTEPATH=$(pwd)/hostfile.txt
+export X10_ABSOLUTEPATH='/tmp/projet/hostfile.txt'
 
 ~/x10/bin/x10c DistMake/src/DistMake.x10
