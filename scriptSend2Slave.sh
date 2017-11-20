@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 file="$HOME/hostfile.txt"
 i=0
 
