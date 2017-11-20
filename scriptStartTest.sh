@@ -23,7 +23,7 @@ case $numTest in
 	rm -rf /tmp/DistMake/fram* 2> /dev/null
 	sudo-g5k apt-get install blender -y -qq
 	./scriptCommand2Slave.sh "sudo-g5k apt-get install blender -y -qq"
-	tar -xf testMakefiles/blender_2.49/cube_anim.zip
+	unzip testMakefiles/blender_2.49/cube_anim.zip
 	./scriptSend2Slave.sh  testMakefiles/blender_2.49/cube_anim.blend
 	cp testMakefiles/blender_2.49/Makefile DistMake
 	cp testMakefiles/blender_2.49/cube_anim.zip DistMake
