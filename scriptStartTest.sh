@@ -20,6 +20,7 @@ case $numTest in
 	tail DistMake/list.txt
 	;;
         2)
+	rm -rf /tmp/DistMake/fram* 2> /dev/null
 	sudo-g5k apt-get install blender -y -qq
 	./scriptCommand2Slave.sh "sudo-g5k apt-get install blender -y -qq"
 	tar -xf testMakefiles/blender_2.49/cube_anim.zip
