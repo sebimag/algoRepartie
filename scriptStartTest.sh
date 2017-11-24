@@ -17,7 +17,7 @@ case $numTest in
 	cp premier /tmp/DistMake
 	cp testMakefiles/premier/Makefile DistMake
 	cd  DistMake
-	time ~/x10/bin/x10 DistMake Makefile list.txt
+	{ time ~/x10/bin/x10 DistMake Makefile list.txt ; } 2> ~/premierTime.txt
 	tail DistMake/list.txt
 	;;
         2)
@@ -30,7 +30,7 @@ case $numTest in
 	cp testMakefiles/blender_2.49/Makefile DistMake
 	cp testMakefiles/blender_2.49/cube_anim.zip DistMake
 	cd DistMake
-	time ~/x10/bin/x10 DistMake Makefile cube.mpg
+	{ time ~/x10/bin/x10 DistMake Makefile cube.mpg ; } 2> ~/blenderTime.txt
 	;;
 	3)
 	read -p "Give size : " size
