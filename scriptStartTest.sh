@@ -21,17 +21,33 @@ case $numTest in
 	tail DistMake/list.txt
 	;;
         2)
-	rm -rf /tmp/DistMake/fram* 2> /dev/null
-	sudo-g5k apt-get install blender -y -qq
-	./scriptCommand2Slave.sh "sudo-g5k apt-get install blender -y -qq"
-	unzip testMakefiles/blender_2.49/cube_anim.zip
-	./scriptSend2Slave.sh cube_anim.blend
-	cp cube_anim.blend /tmp/DistMake
-	cp testMakefiles/blender_2.49/Makefile DistMake
-	cp testMakefiles/blender_2.49/cube_anim.zip DistMake
-	cd DistMake
-	{ time ~/x10/bin/x10 DistMake Makefile cube.mpg ; } 2> ~/blenderTime.txt
-	;;
+        rm -rf /tmp/DistMake/fram* 2> /dev/null
+              rm -rf /tmp/cube* 2> /dev/null
+              sudo-g5k apt-get install blender -y -qq
+              ./scriptCommand2Slave.sh "sudo-g5k apt-get install blender -y -qq"
+              unzip testMakefiles/blender_2.49/cube_anim.zip
+              ./scriptSend2Slave.sh cube_anim.blend
+              cp cube_anim.blend /tmp/DistMake
+              cp testMakefiles/blender_2.49/Makefile DistMake
+              cp testMakefiles/blender_2.49/cube_anim.zip DistMake
+              cd DistMake
+              { time ~/x10/bin/x10 DistMake Makefile cube.mpg ; } 2> ~/blenderTime.txt
+              $emptyFile="SUCCES"
+              nbFrames=$(ls /tmp/fram*.png | wc -l)
+              for filename in /tmp/fram*.png; do
+                      if [ -s "$filename" ]
+                      then
+
+                      else
+                              $emptyFile="ECHEC"
+                      fi
+              done
+              if [ nbFrames -ne 113 ]
+              then
+                      $emptyFile="ECHEC"
+              fi
+              echo $emptyFile
+              ;;
 	3)
 	read -p "Give size : " size
 	testMakefiles/matrix/./generate_makefile.pl $size > Makefile
@@ -40,7 +56,3 @@ case $numTest in
 	;;
         *)
 esac
-
-
-
-
